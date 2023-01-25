@@ -85,7 +85,7 @@ void GameScene::Draw() {
 	boss_->Draw(viewProjection_);
 	testTarget_->Draw(viewProjection_);
 	skydome_->Draw(viewProjection_);
-	bumper_->Draw();
+	bumper_->Draw(viewProjection_);
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();
 #pragma endregion

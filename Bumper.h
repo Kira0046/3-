@@ -40,7 +40,7 @@ public: // ƒƒ“ƒoŠÖ”
 	/// <summary>
 	/// •`‰æ
 	/// </summary>
-	void Draw();
+	void Draw(ViewProjection& viewProjection);
 private: // ƒƒ“ƒo•Ï”
 	DirectXCommon* dxCommon_ = nullptr;
 	Input* input_ = nullptr;
@@ -73,7 +73,7 @@ private: // ƒƒ“ƒo•Ï”
 	WorldTransform worldTransformBumperArmL_ = {};
 	WorldTransform worldTransformBumperArmR_ = {};
 
-	ViewProjection viewProjection_;
+	
 
 
 };

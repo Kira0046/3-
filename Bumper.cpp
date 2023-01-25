@@ -36,9 +36,9 @@ void Bumper::Initialize() {
 
 	//////////////////////////////////////////////////////////////////:カメラ
 
-	viewProjection_.eye = { 0,0,-6 };
-	viewProjection_.target = { 0,1,0 };
-	viewProjection_.Initialize();
+	//viewProjection_.eye = { 0,0,-6 };
+	//viewProjection_.target = { 0,1,0 };
+	//viewProjection_.Initialize();
 }
 
 void Bumper::Update()
@@ -85,17 +85,17 @@ void Bumper::Update()
 
 }
 
-void Bumper::Draw()
+void Bumper::Draw(ViewProjection& viewProjection)
 {
 
 	/// <summary>
 	/// ここに3Dオブジェクトの描画処理を追加できる
 	/// </summary>
-	modelBumper_->Draw(worldTransformBumper_, viewProjection_, textureHandleBumper_);
+	modelBumper_->Draw(worldTransformBumper_, viewProjection, textureHandleBumper_);
 
-	modelBumperArmL_->Draw(worldTransformBumperArmL_, viewProjection_, textureHandleBumperArmL_);
+	modelBumperArmL_->Draw(worldTransformBumperArmL_, viewProjection, textureHandleBumperArmL_);
 
-	modelBumperArmR_->Draw(worldTransformBumperArmR_, viewProjection_, textureHandleBumperArmR_);
+	modelBumperArmR_->Draw(worldTransformBumperArmR_, viewProjection, textureHandleBumperArmR_);
 
 }
 
