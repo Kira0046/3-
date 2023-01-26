@@ -43,17 +43,66 @@ void GameScene::Initialize() {
 	skydome_->Initialize(modelSkyDome_);
 	bumper_->Initialize();
 
+	soundDataGameTitleBGM = audio_->LoadWave("bgm/title.wav");
+	soundDataGamePlayBGM = audio_->LoadWave("bgm/play.wav");
+	soundDataGameClearBGM = audio_->LoadWave("bgm/clear.wav");
+	soundDataGameOverBGM = audio_->LoadWave("bgm/over.wav");
+
+	BGMHandle = audio_->PlayWave(soundDataGameTitleBGM, true);
 
 	viewProjection_.Initialize();
 }
 
 void GameScene::Update() {
-	CheckCollision();
+	
 
 
-	boss_->Update();
-	testTarget_->Update();
-	bumper_->Update();
+	/*if (BGMChange == 0) {
+		if (input_->TriggerKey(DIK_P)) {
+			if (BGMChange == 0) {
+				audio_->StopWave(BGMHandle);
+				BGMHandle = audio_->PlayWave(soundDataGamePlayBGM, true);
+				BGMChange = 1;
+			}
+		}
+	}
+
+	if (BGMChange == 1) {
+		if (input_->TriggerKey(DIK_P)) {
+			if (BGMChange == 1) {
+				audio_->StopWave(BGMHandle);
+				BGMHandle = audio_->PlayWave(soundDataGameClearBGM, true);
+				BGMChange = 2;
+			}
+		}
+	}
+
+	if (BGMChange == 2) {
+		if (input_->TriggerKey(DIK_P)) {
+			if (BGMChange == 2) {
+				audio_->StopWave(BGMHandle);
+				BGMHandle = audio_->PlayWave(soundDataGameTitleBGM, true);
+				BGMChange = 0;
+			}
+		}
+	}*/
+
+	switch (scene_) {
+	case 0:
+		TitleUpdate();
+		break;
+	case 1:
+		PlayUpdate();
+		break;
+	case 2:
+		ClearUpdate();
+		break;
+	case 3:
+		OverUpdate();
+		break;
+	}
+
+	
 }
 
 void GameScene::Draw() {
@@ -68,6 +117,21 @@ void GameScene::Draw() {
 	/// <summary>
 	/// ここに背景スプライトの描画処理を追加できる
 	/// </summary>
+	
+	switch (scene_)
+	{
+	case 0:
+		Title2D();
+		break;
+	case 1:
+		Play2D();
+		break;
+	case 2:
+		Clear2D();
+	case 3:
+		Over2D();
+		break;
+	}
 
 	// スプライト描画後処理
 	Sprite::PostDraw();
@@ -82,10 +146,15 @@ void GameScene::Draw() {
 	/// <summary>
 	/// ここに3Dオブジェクトの描画処理を追加できる
 	/// </summary>
-	boss_->Draw(viewProjection_);
-	testTarget_->Draw(viewProjection_);
-	skydome_->Draw(viewProjection_);
-	bumper_->Draw(viewProjection_);
+	
+	switch (scene_)
+	{
+	case 1:
+		Play3D();
+		break;
+	}
+
+	
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();
 #pragma endregion
@@ -133,3 +202,57 @@ void GameScene::CollisionTargetBullet()
 		}
 	}
 }
+
+void GameScene::TitleUpdate()
+{
+	if (input_->TriggerKey(DIK_SPACE)) {
+		TitleCount += 1;
+
+		if (TitleCount > 1) {
+			audio_->StopWave(BGMHandle);
+			BGMHandle = audio_->PlayWave(soundDataGamePlayBGM, true);
+			scene_ = 1;
+		}
+	}
+}
+
+void GameScene::Title2D()
+{
+}
+
+void GameScene::PlayUpdate()
+{
+	CheckCollision();
+	boss_->Update();
+	testTarget_->Update();
+	bumper_->Update();
+}
+
+void GameScene::Play2D()
+{
+}
+
+void GameScene::Play3D()
+{
+	boss_->Draw(viewProjection_);
+	testTarget_->Draw(viewProjection_);
+	skydome_->Draw(viewProjection_);
+	bumper_->Draw(viewProjection_);
+}
+
+void GameScene::ClearUpdate()
+{
+}
+
+void GameScene::Clear2D()
+{
+}
+
+void GameScene::OverUpdate()
+{
+}
+
+void GameScene::Over2D()
+{
+}
+

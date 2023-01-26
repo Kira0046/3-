@@ -50,6 +50,20 @@ class GameScene {
 
 	void CollisionTargetBullet();
 
+	void TitleUpdate();
+	void Title2D();
+	
+	void PlayUpdate();
+	void Play2D();
+	void Play3D();
+
+	void ClearUpdate();
+	void Clear2D();
+
+	void OverUpdate();
+	void Over2D();
+
+
   private: // メンバ変数
 	DirectXCommon* dxCommon_ = nullptr;
 	Input* input_ = nullptr;
@@ -77,4 +91,16 @@ class GameScene {
 	Model* modelSkyDome_ = nullptr;
 
 	ViewProjection viewProjection_;
+
+	//サウンド
+	uint32_t soundDataGameTitleBGM = 0;
+	uint32_t soundDataGamePlayBGM = 0;
+	uint32_t soundDataGameClearBGM = 0;
+	uint32_t soundDataGameOverBGM = 0;
+	uint32_t BGMHandle = 0;
+
+	//シーン
+	int scene_ = 0;
+	int TitleCount = 0;
+
 };
