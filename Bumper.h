@@ -73,8 +73,12 @@ private: // ƒƒ“ƒo•Ï”
 	WorldTransform worldTransformBumperArmL_ = {};
 	WorldTransform worldTransformBumperArmR_ = {};
 
-	
+	int Fase = 0;
 
+	float armspeed = 0.5f;
+	float shutspeed = 0.5f;
 
+	float Fallsecond = 0.25;
+	int FallTime = Fallsecond * 60;
 };
 

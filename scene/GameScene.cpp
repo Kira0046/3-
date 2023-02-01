@@ -50,6 +50,8 @@ void GameScene::Initialize() {
 
 	BGMHandle = audio_->PlayWave(soundDataGameTitleBGM, true);
 
+	viewProjection_.eye = { 0,0,-6 };
+	viewProjection_.target = { 0,1,0 };
 	viewProjection_.Initialize();
 }
 
@@ -205,7 +207,7 @@ void GameScene::CollisionTargetBullet()
 
 void GameScene::TitleUpdate()
 {
-	if (input_->TriggerKey(DIK_SPACE)) {
+	if (input_->TriggerKey(DIK_RETURN)) {
 		TitleCount += 1;
 
 		if (TitleCount > 1) {

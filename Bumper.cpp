@@ -43,45 +43,95 @@ void Bumper::Initialize() {
 
 void Bumper::Update()
 {
+	if (Fase == 0) {
 
-	if (input_->PushKey(DIK_SPACE))
-	{
-		worldTransformBumper_.translation_.y -= 0.5;
-		worldTransformBumperArmL_.translation_.y -= 0.5;
-		worldTransformBumperArmR_.translation_.y -= 0.5;
+		if (input_->PushKey(DIK_SPACE))
+		{
+			if (Fase == 0) {
+				Fase = 1;
+			}
+
+		}
+
+		if (input_->PushKey(DIK_A))
+		{
+			worldTransformBumper_.translation_.x -= armspeed;
+			worldTransformBumperArmL_.translation_.x -= armspeed;
+			worldTransformBumperArmR_.translation_.x -= armspeed;
+		}
+
+		if (input_->PushKey(DIK_D))
+		{
+			worldTransformBumper_.translation_.x += armspeed;
+			worldTransformBumperArmL_.translation_.x += armspeed;
+			worldTransformBumperArmR_.translation_.x += armspeed;
+		}
+
+		if (input_->PushKey(DIK_S))
+		{
+			worldTransformBumper_.translation_.z -= armspeed;
+			worldTransformBumperArmL_.translation_.z -= armspeed;
+			worldTransformBumperArmR_.translation_.z -= armspeed;
+		}
+
+		if (input_->PushKey(DIK_W))
+		{
+			worldTransformBumper_.translation_.z += armspeed;
+			worldTransformBumperArmL_.translation_.z += armspeed;
+			worldTransformBumperArmR_.translation_.z += armspeed;
+		}
 	}
 
 
-	if (input_->PushKey(DIK_LEFT))
-	{
-		worldTransformBumper_.translation_.x -= 0.5;
-		worldTransformBumperArmL_.translation_.x -= 0.5;
-		worldTransformBumperArmR_.translation_.x -= 0.5;
+	//降下中
+	if (Fase == 1) {
+		FallTime -= 1;
+		worldTransformBumper_.translation_.y -= armspeed;
+		worldTransformBumperArmL_.translation_.y -= armspeed;
+		worldTransformBumperArmR_.translation_.y -= armspeed;
+		if (FallTime < 0) {
+			shutspeed = 0.5f;
+			Fase = 2;
+			FallTime = Fallsecond * 60;
+		}
 	}
 
-	if (input_->PushKey(DIK_RIGHT))
-	{
-		worldTransformBumper_.translation_.x += 0.5;
-		worldTransformBumperArmL_.translation_.x += 0.5;
-		worldTransformBumperArmR_.translation_.x += 0.5;
+	//アームが閉まる
+	if (Fase == 2) {
+		worldTransformBumperArmL_.translation_.x += shutspeed;
+		worldTransformBumperArmR_.translation_.x -= shutspeed;
+		if (fabs(worldTransformBumperArmL_.translation_.x - worldTransformBumperArmR_.translation_.x) < 1.0f) {
+			shutspeed = 0;
+			Fase = 3;
+		}
 	}
 
-	if (input_->PushKey(DIK_DOWN))
-	{
-		worldTransformBumper_.translation_.y -= 0.5;
-		worldTransformBumperArmL_.translation_.y -= 0.5;
-		worldTransformBumperArmR_.translation_.y -= 0.5;
+	//上昇後再び待機
+	if (Fase == 3) {
+		FallTime -= 1;
+		worldTransformBumper_.translation_.y += armspeed;
+		worldTransformBumperArmL_.translation_.y += armspeed;
+		worldTransformBumperArmR_.translation_.y += armspeed;
+		if (FallTime < 0) {
+			armspeed = 0;
+			shutspeed = 0.5f;
+			worldTransformBumperArmL_.translation_.x -= shutspeed;
+			worldTransformBumperArmR_.translation_.x += shutspeed;
+			if (fabs(worldTransformBumper_.translation_.x - worldTransformBumperArmL_.translation_.x) > 1.3f) {
+				worldTransformBumperArmL_.translation_.x = worldTransformBumper_.translation_.x - 1.3f;
+				worldTransformBumperArmR_.translation_.x = worldTransformBumper_.translation_.x + 1.3f;
+
+				Fase = 0;
+				FallTime = Fallsecond * 60;
+				armspeed = 0.5f;
+			}
+		}
 	}
 
-	if (input_->PushKey(DIK_UP))
-	{
-		worldTransformBumper_.translation_.y += 0.5;
-		worldTransformBumperArmL_.translation_.y += 0.5;
-		worldTransformBumperArmR_.translation_.y += 0.5;
-	}
 
 	BumperMove();
 	BumperArmMove();
+	
 
 }
 
@@ -160,7 +210,7 @@ void Bumper::BumperInitialize() {
 	worldTransformBumper_.TransferMatrix();
 
 	//位置
-	worldTransformBumper_.translation_ = { 0.0f,17.0f,10.0f };
+	worldTransformBumper_.translation_ = { 0.0f,22.0f,10.0f };
 
 	Matrix4 matTransL = MathUtility::Matrix4Identity();
 
@@ -290,7 +340,7 @@ void Bumper::BumperArmInitialize() {
 	worldTransformBumperArmL_.TransferMatrix();
 
 	//位置
-	worldTransformBumperArmL_.translation_ = { -1.3f,2.5f,10.0f };
+	worldTransformBumperArmL_.translation_ = { -1.3f,7.5f,10.0f };
 
 	Matrix4 matTransL = MathUtility::Matrix4Identity();
 
@@ -359,7 +409,7 @@ void Bumper::BumperArmInitialize() {
 	worldTransformBumperArmR_.TransferMatrix();
 
 	//位置
-	worldTransformBumperArmR_.translation_ = { 1.3f,2.5f,10.0f };
+	worldTransformBumperArmR_.translation_ = { 1.3f,7.5f,10.0f };
 
 	Matrix4 matTransR = MathUtility::Matrix4Identity();
 
