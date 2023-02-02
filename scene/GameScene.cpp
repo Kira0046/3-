@@ -48,6 +48,8 @@ void GameScene::Initialize() {
 	soundDataGameClearBGM = audio_->LoadWave("bgm/clear.wav");
 	soundDataGameOverBGM = audio_->LoadWave("bgm/over.wav");
 
+	soundDataEnterSE = audio_->LoadWave("bgm/menuSE.wav");
+
 	BGMHandle = audio_->PlayWave(soundDataGameTitleBGM, true);
 
 	viewProjection_.eye = { 0,0,-6 };
@@ -208,6 +210,10 @@ void GameScene::CollisionTargetBullet()
 void GameScene::TitleUpdate()
 {
 	if (input_->TriggerKey(DIK_RETURN)) {
+		if (TitleCount == 0) {
+			SEHandle = audio_->PlayWave(soundDataEnterSE, false);
+		}
+
 		TitleCount += 1;
 
 		if (TitleCount > 1) {

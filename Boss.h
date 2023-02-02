@@ -8,6 +8,7 @@
 #include "WorldTransform.h"
 #include "BossBullet.h"
 #include "Input.h"
+#include "Audio.h"
 
 class TestTarget;
 
@@ -65,6 +66,7 @@ private:
 	int shootTimer = 60 * 1;
 
 	TestTarget* testTarget_ = nullptr;
+	Audio* audio_ = nullptr;
 
 	float Damage;
 
@@ -88,4 +90,7 @@ private:
 
 	// フェーズ
 	Phase phase_ = Phase::First;
+
+	uint32_t soundDataBossShot = 0;
+	uint32_t SEHandle = 0;
 };

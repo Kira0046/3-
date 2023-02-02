@@ -23,7 +23,7 @@ void Bumper::Initialize() {
 	textureHandleBumperArmL_ = TextureManager::Load("blocktest.png");
 	textureHandleBumperArmR_ = TextureManager::Load("blocktest.png");
 
-
+	soundDataArmSE = audio_->LoadWave("bgm/armSE.wav");
 
 	modelBumper_ = Model::Create();
 	modelBumperArmL_ = Model::Create();
@@ -49,6 +49,7 @@ void Bumper::Update()
 		{
 			if (Fase == 0) {
 				Fase = 1;
+				SEHandle = audio_->PlayWave(soundDataArmSE, false);
 			}
 
 		}

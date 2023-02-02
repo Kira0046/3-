@@ -99,6 +99,9 @@ class GameScene {
 	uint32_t soundDataGameOverBGM = 0;
 	uint32_t BGMHandle = 0;
 
+	uint32_t soundDataEnterSE = 0;
+	uint32_t SEHandle = 0;
+
 	//シーン
 	int scene_ = 0;
 	int TitleCount = 0;

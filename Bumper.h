@@ -80,5 +80,8 @@ private: // ƒƒ“ƒo•Ï”
 
 	float Fallsecond = 0.25;
 	int FallTime = Fallsecond * 60;
+
+	uint32_t soundDataArmSE = 0;
+	uint32_t SEHandle = 0;
 };
 

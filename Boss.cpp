@@ -14,6 +14,9 @@ void Boss::Initialize(Model* model, Model* modelBullet)
 
 	input_ = Input::GetInstance();
 	debugText_ = DebugText::GetInstance();
+	audio_ = Audio::GetInstance();
+
+	soundDataBossShot = audio_->LoadWave("bgm/Shot.wav");
 
 	worldTransform_.scale_ = { 5.0f,5.0f,5.0f };
 	worldTransform_.rotation_ = { 0,0,0 };
@@ -98,6 +101,7 @@ void Boss::Shoot()
 		velocity.y = distance.y / ALLdistance;
 		velocity.z = distance.z / ALLdistance;
 
+		SEHandle = audio_->PlayWave(soundDataBossShot, false);
 		switch (phase_)
 		{
 		case Phase::First:
