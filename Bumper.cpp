@@ -23,7 +23,7 @@ void Bumper::Initialize() {
 	textureHandleBumperArmL_ = TextureManager::Load("blocktest.png");
 	textureHandleBumperArmR_ = TextureManager::Load("blocktest.png");
 
-	soundDataArmSE = audio_->LoadWave("bgm/armSE.wav");
+	soundDataArmSE = audio_->LoadWave("SE/armSE.wav");
 
 	modelBumper_ = Model::Create();
 	modelBumperArmL_ = Model::Create();

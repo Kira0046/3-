@@ -48,7 +48,7 @@ void GameScene::Initialize() {
 	soundDataGameClearBGM = audio_->LoadWave("bgm/clear.wav");
 	soundDataGameOverBGM = audio_->LoadWave("bgm/over.wav");
 
-	soundDataEnterSE = audio_->LoadWave("bgm/menuSE.wav");
+	soundDataEnterSE = audio_->LoadWave("SE/menuSE.wav");
 
 	BGMHandle = audio_->PlayWave(soundDataGameTitleBGM, true);
 

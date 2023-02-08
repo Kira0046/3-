@@ -16,7 +16,7 @@ void Boss::Initialize(Model* model, Model* modelBullet)
 	debugText_ = DebugText::GetInstance();
 	audio_ = Audio::GetInstance();
 
-	soundDataBossShot = audio_->LoadWave("bgm/Shot.wav");
+	soundDataBossShot = audio_->LoadWave("SE/ShotSE.wav");
 
 	worldTransform_.scale_ = { 5.0f,5.0f,5.0f };
 	worldTransform_.rotation_ = { 0,0,0 };
